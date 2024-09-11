@@ -6,7 +6,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float speed;
-    private float health = 10;
+    [SerializeField] private float health;
+    [SerializeField] private float maxHealth;
 
     public float Health
     {
@@ -20,7 +21,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Rigidbody2D rigid;
-    Color color;
+    private Color color;
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -28,6 +29,7 @@ public class Enemy : MonoBehaviour
 
         rigid.bodyType = RigidbodyType2D.Kinematic;
         color = spriteRenderer.color;
+        health = maxHealth;
     }
 
     private void Start()

@@ -14,6 +14,7 @@ public class Hunter : MonoBehaviour
     private float fixedYPosition;  
     private Coroutine fireCoroutine;
     public int arrowLife = 1;
+    public float hunterDamage = 0;
     private int arrowCount = 0;
     public bool doubleShot = false;
 
@@ -70,6 +71,7 @@ public class Hunter : MonoBehaviour
         Arrow a = arrow.GetComponent<Arrow>();
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
         a.life = arrowLife;
+        a.damage = hunterDamage;
         rb.velocity = Vector2.up * 10f;
     }
     public void SetFireRate(float newFireRate)

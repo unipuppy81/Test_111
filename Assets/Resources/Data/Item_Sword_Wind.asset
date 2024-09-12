@@ -15,11 +15,14 @@ MonoBehaviour:
   itemType: 0
   attribute: 2
   itemId: 1
-  itemName: Sword_Wind
+  itemName: "\uAC80_\uBC14\uB78C"
   itemDesc: "\uACF5\uACA9\uB825 + 30%, \uACF5\uACA9 \uC18D\uB3C4 +30%"
   itemLevel: 0
   itemCost: 6
   itemIcon: {fileID: 21300000, guid: 3ac5a753bc20c6e4ab23ef8f45396ecd, type: 3}
-  baseDamage: 10
-  baseCount: 0
+  itemTypeCount: 0
+  attributeTypeCount: 0
   damageIncrease: 0.3
+  speedIncrease: 0.3
+  goldAmount: 0
+  healAmount: 0

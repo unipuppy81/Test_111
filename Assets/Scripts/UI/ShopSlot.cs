@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class ShopSlot : MonoBehaviour
 {
@@ -54,11 +55,12 @@ public class ShopSlot : MonoBehaviour
         itemType = shopItem.itemType.ToString();
         itemAttribute = shopItem.attribute.ToString();
         costText.text = shopItem.itemCost.ToString();
+        icon_Type.sprite = shopItem.itemIcon;
         itemName.text = shopItem.itemName;
         itemDesc.text = shopItem.itemDesc;
 
-        count_Type.text = $"{PlayerStats.Instance.GetItemTypeCount(shopItem.itemType)} / {3}";
-        count_Attribute.text = $"{PlayerStats.Instance.GetAttributeTypeCount(shopItem.attribute)} / {3}";
+        count_Type.text = PlayerData.Instance.GetItemProgress(itemType);
+        count_Attribute.text = PlayerData.Instance.GetAttributeProgress(itemAttribute);
 
         SetColor();
         SetAttribute();
@@ -88,21 +90,34 @@ public class ShopSlot : MonoBehaviour
         ItemManager.Instance.GetItem(shopItem.itemId);
         thisBtn.interactable = false;
 
-        if (PlayerStats.Instance.gold >= shopItem.itemCost)
+        if (PlayerData.Instance.gold >= shopItem.itemCost)
         {
-            PlayerStats.Instance.gold -= shopItem.itemCost;
+            PlayerData.Instance.gold -= shopItem.itemCost;
         }
     }
 
     private void SpecialPanel()
     {
-        if(shopItem.itemLevel == 2 || shopItem.itemLevel == 4 || shopItem.itemLevel == 6)
+        if ((shopItem.itemTypeCount == 2 || shopItem.itemTypeCount == 4 || shopItem.itemTypeCount == 6) &&
+    (shopItem.attributeTypeCount == 2 || shopItem.attributeTypeCount == 4 || shopItem.attributeTypeCount == 6))
         {
             specialObj.SetActive(true);
+            specialText.text = "멀티 업그레이드";
+        }
+        else if (shopItem.itemTypeCount == 2 || shopItem.itemTypeCount == 4 || shopItem.itemTypeCount == 6)
+        {
+            specialObj.SetActive(true);
+            specialText.text = "무기 업그레이드";
+        }
+        else if (shopItem.attributeTypeCount == 2 || shopItem.attributeTypeCount == 4 || shopItem.attributeTypeCount == 6)
+        {
+            specialObj.SetActive(true);
+            specialText.text = "속성 업그레이드";
         }
         else
         {
             specialObj.SetActive(false);
         }
+
     }
 }

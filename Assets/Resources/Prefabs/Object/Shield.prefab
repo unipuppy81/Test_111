@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7609006505357980483}
   - component: {fileID: 7017761484899624601}
   - component: {fileID: 2598885913068851869}
-  - component: {fileID: 5540067119210123463}
+  - component: {fileID: 1284873143630944306}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Bullet
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.16
---- !u!114 &5540067119210123463
+--- !u!114 &1284873143630944306
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,8 +130,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1159829658422854196}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cff28d43be241843bc8ef24b3baa854, type: 3}
+  m_Script: {fileID: 11500000, guid: 98b4788886e58b045be7a67483dbcd62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  per: 0

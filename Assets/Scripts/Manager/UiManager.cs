@@ -127,7 +127,7 @@ public class UiManager : Singleton<UiManager>
 
     public void GoldSet()
     {
-        goldText.text = PlayerStats.Instance.gold.ToString();
+        goldText.text = PlayerData.Instance.gold.ToString();
     }
     #endregion
 }

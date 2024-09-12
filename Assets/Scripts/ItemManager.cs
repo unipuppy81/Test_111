@@ -10,11 +10,11 @@ public class ItemManager : Singleton<ItemManager>
     [Header("인벤토리")]
     [SerializeField] private GameObject[] slots;
 
-    [SerializeField] private List<Item> myItemList, nonTypeItemList, miniItemList;
+    [SerializeField] private List<Item> miniItemList;
     [SerializeField] private List<Item> totalItemListOrgin;
     
     public List<Item> totalItemList;
-
+    public List<Item> myItemList, nonTypeItemList;
 
     [Header("상점")]
     public List<Item> shopItemList;
@@ -50,10 +50,11 @@ public class ItemManager : Singleton<ItemManager>
         if (curItem != null)
         {
             curItem.itemLevel = curItem.itemLevel + 1;
-            PlayerStats.Instance.AddItem(curItem.itemType);
-            PlayerStats.Instance.AddAttribute(curItem.attribute);
+            PlayerData.Instance.AddItem(curItem.itemType);
+            PlayerData.Instance.AddAttribute(curItem.attribute);
+            PlayerData.Instance.SetItemValue(curItem);
 
-            if(curItem.itemLevel == 7)
+            if (curItem.itemLevel == 7)
             {
                 totalItemList.RemoveAll(x => x.itemId == curItem.itemId);
             }
@@ -63,12 +64,12 @@ public class ItemManager : Singleton<ItemManager>
             Item findItem = totalItemList.Find(x => x.itemId.Equals(itemId));
             if (findItem != null)
             {
-                Debug.Log(findItem.itemLevel);
                 findItem.itemLevel++;
                 findItem.CheckItemSet();
                 myItemList.Add(findItem);
-                PlayerStats.Instance.AddItem(findItem.itemType);
-                PlayerStats.Instance.AddAttribute(findItem.attribute);
+                PlayerData.Instance.AddItem(findItem.itemType);
+                PlayerData.Instance.AddAttribute(findItem.attribute);
+                PlayerData.Instance.SetItemValue(findItem);
             }
         }
 
@@ -77,7 +78,7 @@ public class ItemManager : Singleton<ItemManager>
         myItemList.RemoveAll(x => x.attribute == AttributeType.None);
 
         SlotSetting();
-                    UiManager.Instance.UpdateSlot();
+        UiManager.Instance.UpdateSlot();
     }
 
     public void SlotSetting()
@@ -114,6 +115,13 @@ public class ItemManager : Singleton<ItemManager>
 
         if (curItem != null)
         {
+
+            if (curItem.attribute != AttributeType.None)
+            {
+                curItem.itemTypeCount = PlayerData.Instance.GetItemTypeCount(curItem.itemType);
+                curItem.attributeTypeCount = PlayerData.Instance.GetAttributeTypeCount(curItem.attribute);
+            }
+
             shopItemList.Add(curItem);
         }
     }

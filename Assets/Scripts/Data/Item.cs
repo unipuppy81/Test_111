@@ -19,11 +19,13 @@ public class Item : ScriptableObject
     public int itemCost;
     public Sprite itemIcon;
 
-    [Header("Level Data")]
-    public float baseDamage;
-    public int baseCount;
+    [Header("Shop && NonSkill")]
+    public int itemTypeCount;
+    public int attributeTypeCount;
     public float damageIncrease;
-
+    public float speedIncrease;
+    public int goldAmount;
+    public float healAmount;
     public void CheckItemSet()
     {
         LevelUp();

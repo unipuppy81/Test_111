@@ -12,14 +12,6 @@ public class ShopManager : MonoBehaviour
 
     public int gold;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-
-        }
-    }
-
     public void OpenShop()
     {
         // 상점 UI 열기

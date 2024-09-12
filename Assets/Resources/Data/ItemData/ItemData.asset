@@ -23,7 +23,7 @@ MonoBehaviour:
   - "\uBC29\uD328 \uC18D\uB3C4 \uC99D\uAC00"
   itemArrowLevelDataDesc:
   - "5\uD68C \uACF5\uACA9\uB9C8\uB2E4 2\uD68C \uACF5\uACA9"
-  - "\uACF5\uACA9 \uC18D\uB3C4 +30%"
+  - "\uACF5\uACA9 \uC18D\uB3C4 +30%, \uB370\uBBF8\uC9C0 +50%"
   - "\uAD00\uD1B5 \uD654\uC0B4"
   attributeLevelData: 030000000500000007000000
   attributeFireLevelDataDesc:

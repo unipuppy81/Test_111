@@ -22,11 +22,14 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform pos;
     [SerializeField] private Vector2 boxSize;
     [SerializeField] private float curTime;
-    [SerializeField] private float coolTime = .5f;
+    public float coolTime = .5f;
+    public int attackCount = 0;
+    public int swordLevel = 0;
+    public bool doubleAttack = false;
 
 
     [Header("Stats")]
-    public float damage = 1f;
+    public float damage = 0f;
     public float curHp;
     public float maxHp = 300;
     public int gold;
@@ -43,15 +46,25 @@ public class Player : MonoBehaviour
         NormalAttack();
     }
 
+    #region 체력 & 이동
+
+    public void SetHealth(float amount)
+    {
+        curHp += amount;
+
+        if (curHp >= maxHp)
+            curHp = maxHp;
+    }
+
     private void HandleMouseInput()
     {
-        if (Input.GetMouseButtonDown(0)) 
+        if (Input.GetMouseButtonDown(0))
         {
             initialMousePos = Input.mousePosition;
             isDrag = true;
         }
 
-        if (Input.GetMouseButtonUp(0)) 
+        if (Input.GetMouseButtonUp(0))
         {
             isDrag = false;
         }
@@ -80,7 +93,10 @@ public class Player : MonoBehaviour
             initialMousePos = currentMousePosition;
         }
     }
+    #endregion
 
+
+    #region 기본 공격
     private void NormalAttack()
     {
         Collider2D[] collider2D = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
@@ -95,7 +111,24 @@ public class Player : MonoBehaviour
 
                     GameManager.Instance.isCrush = true;
                     anim.SetTrigger("isAtk");
+                    attackCount++;
                     curTime = coolTime;
+
+
+                    if (swordLevel >= 7 && attackCount == 3)
+                    {
+                        doubleAttack = true;
+                    }
+
+                    if (swordLevel >= 5 && attackCount >= 3)
+                    {
+                        curHp += 5;
+                        attackCount = 0;
+                    }
+
+
+                    if (doubleAttack)
+                        StartCoroutine(PerformDoubleAttack());
                 }
                 else
                 {
@@ -104,10 +137,27 @@ public class Player : MonoBehaviour
             }
 
         }
-       
+
         curTime -= Time.deltaTime;
 
     }
+
+    private IEnumerator PerformDoubleAttack()
+    {
+        Collider2D[] collider2D = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
+        foreach (Collider2D collider in collider2D)
+        {
+            if (collider.CompareTag("Enemy"))
+            {
+                Enemy e = collider.GetComponent<Enemy>();
+                e.OnHit(damage);
+                anim.SetTrigger("isAtk");
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+        doubleAttack = false;
+    }
+    #endregion
 
 
     #region 디버깅

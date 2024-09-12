@@ -15,11 +15,14 @@ MonoBehaviour:
   itemType: 2
   attribute: 2
   itemId: 5
-  itemName: Arrow_Wind
+  itemName: "\uD654\uC0B4_\uBC14\uB78C"
   itemDesc: "\uD654\uC0B4 \uACF5\uACA9 \uC18D\uB3C4 +30%"
   itemLevel: 0
   itemCost: 6
   itemIcon: {fileID: 21300000, guid: 3a89b9a9da2d6a14693350631ba509c4, type: 3}
-  baseDamage: 3
-  baseCount: 0
-  damageIncrease: 0.3
+  itemTypeCount: 0
+  attributeTypeCount: 0
+  damageIncrease: 0
+  speedIncrease: 0.3
+  goldAmount: 0
+  healAmount: 0

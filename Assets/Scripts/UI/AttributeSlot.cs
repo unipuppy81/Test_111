@@ -21,36 +21,36 @@ public class AttributeSlot : MonoBehaviour
     {
         if(slotType == SlotType.Item)
         {
-            countText.text = PlayerStats.Instance.GetItemProgress(type);
+            countText.text = PlayerData.Instance.GetItemProgress(type);
 
             switch (type)
             {
                 case "Sword":
-                    curLevel = PlayerStats.Instance.GetItemTypeCount(ItemType.Sword);
+                    curLevel = PlayerData.Instance.GetItemTypeCount(ItemType.Sword);
                     break;
 
                 case "Shield":
-                    curLevel = PlayerStats.Instance.GetItemTypeCount(ItemType.Shield);
+                    curLevel = PlayerData.Instance.GetItemTypeCount(ItemType.Shield);
                     break;
 
                 case "Arrow":
-                    curLevel = PlayerStats.Instance.GetItemTypeCount(ItemType.Arrow);
+                    curLevel = PlayerData.Instance.GetItemTypeCount(ItemType.Arrow);
                     break;
             }
         
         }
         else if (slotType == SlotType.Attribute)
         {
-            countText.text = PlayerStats.Instance.GetAttributeProgress(type);
+            countText.text = PlayerData.Instance.GetAttributeProgress(type);
 
             switch (type)
             {
                 case "Fire":
-                    curLevel = PlayerStats.Instance.GetAttributeTypeCount(AttributeType.Fire);
+                    curLevel = PlayerData.Instance.GetAttributeTypeCount(AttributeType.Fire);
                     break;
 
                 case "Wind":
-                    curLevel = PlayerStats.Instance.GetAttributeTypeCount(AttributeType.Wind);
+                    curLevel = PlayerData.Instance.GetAttributeTypeCount(AttributeType.Wind);
                     break;
             }
         }

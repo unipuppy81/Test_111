@@ -20,6 +20,9 @@ MonoBehaviour:
   itemLevel: 0
   itemCost: 10
   itemIcon: {fileID: -2421343691936151383, guid: 606e3127513c6c74d852755e18a67337, type: 3}
-  baseDamage: 0
-  baseCount: 0
+  itemTypeCount: 0
+  attributeTypeCount: 0
   damageIncrease: 0
+  speedIncrease: 0
+  goldAmount: 10
+  healAmount: 0

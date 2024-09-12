@@ -15,11 +15,14 @@ MonoBehaviour:
   itemType: 1
   attribute: 2
   itemId: 3
-  itemName: Shield_Wind
+  itemName: "\uBC29\uD328_\uBC14\uB78C"
   itemDesc: "\uBC29\uD328 \uD68C\uC804 \uC18D\uB3C4 + 30%"
   itemLevel: 0
   itemCost: 6
   itemIcon: {fileID: 21300000, guid: 18fa3e784fa1d40c8bd42d3c92623537, type: 3}
-  baseDamage: 3
-  baseCount: 3
-  damageIncrease: 0.3
+  itemTypeCount: 0
+  attributeTypeCount: 0
+  damageIncrease: 0
+  speedIncrease: 0.3
+  goldAmount: 0
+  healAmount: 0

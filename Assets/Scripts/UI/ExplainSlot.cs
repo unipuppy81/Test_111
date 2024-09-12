@@ -110,7 +110,7 @@ public class ExplainSlot : MonoBehaviour
         switch (type)
         {
             case "Sword":
-                curCount = PlayerStats.Instance.itemTypeCount[ItemType.Sword];
+                curCount = PlayerData.Instance.itemTypeCount[ItemType.Sword];
                 for (int i =0;i < levelCount.Length; i++)
                 {
                     levelCount[i].text = GameManager.Instance.itemData.itemLevelData[i].ToString();
@@ -118,7 +118,7 @@ public class ExplainSlot : MonoBehaviour
                 }
                 break;
             case "Shield":
-                curCount = PlayerStats.Instance.itemTypeCount[ItemType.Shield];
+                curCount = PlayerData.Instance.itemTypeCount[ItemType.Shield];
                 for (int i = 0; i < levelCount.Length; i++)
                 {
                     levelCount[i].text = GameManager.Instance.itemData.itemLevelData[i].ToString();
@@ -126,7 +126,7 @@ public class ExplainSlot : MonoBehaviour
                 }
                 break;
             case "Arrow":
-                curCount = PlayerStats.Instance.itemTypeCount[ItemType.Arrow];
+                curCount = PlayerData.Instance.itemTypeCount[ItemType.Arrow];
                 for (int i = 0; i < levelCount.Length; i++)
                 {
                     levelCount[i].text = GameManager.Instance.itemData.itemLevelData[i].ToString();
@@ -136,7 +136,7 @@ public class ExplainSlot : MonoBehaviour
             case "Fire":
                 Color c = Color.red;
                 explainImage.color = new Color(c.r, c.g, c.b, 0.75f);
-                curCount = PlayerStats.Instance.attributeTypeCount[AttributeType.Fire];
+                curCount = PlayerData.Instance.attributeTypeCount[AttributeType.Fire];
                 for (int i = 0; i < levelCount.Length; i++)
                 {
                     levelCount[i].text = GameManager.Instance.itemData.attributeLevelData[i].ToString();
@@ -146,7 +146,7 @@ public class ExplainSlot : MonoBehaviour
             case "Wind":
                 Color g = Color.green;
                 explainImage.color = new Color(g.r, g.g, g.b, 0.75f);
-                curCount = PlayerStats.Instance.attributeTypeCount[AttributeType.Wind];
+                curCount = PlayerData.Instance.attributeTypeCount[AttributeType.Wind];
                 for (int i = 0; i < levelCount.Length; i++)
                 {
                     levelCount[i].text = GameManager.Instance.itemData.attributeLevelData[i].ToString();

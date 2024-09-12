@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f6a8757b5766548b76c132e619d5f8, type: 3}
+  m_Name: Item_Gold_None
+  m_EditorClassIdentifier: 
+  itemType: 4
+  attribute: 0
+  itemId: 8
+  itemName: Gold_None
+  itemDesc: "50% \uD655\uB960\uB85C 20\uACE8\uB4DC"
+  itemLevel: 0
+  itemCost: 10
+  itemIcon: {fileID: -2421343691936151383, guid: 606e3127513c6c74d852755e18a67337, type: 3}
+  baseDamage: 0
+  baseCount: 0

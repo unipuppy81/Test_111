@@ -1,20 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
-    public bool isCrush = false;
+    [Header("상점 변수")]
+    public Dictionary<string, Color> colorDictionary = new Dictionary<string, Color>();
+    public Dictionary<string, Image> imageDictionary = new Dictionary<string, Image>();
 
+    [SerializeField] private Image[] iconImageList;
+
+
+    [Header("게임 로직")]
+    public bool isCrush = false;
     [SerializeField] private GameObject[] enemyObj;
     [SerializeField] private Transform[] spawnPos;
-
     [SerializeField] private float maxSpawnDelay;
     [SerializeField] private float curSpawnDelay;
 
     private void Start()
     {
         SpawnEnemy();
+        SetColor();
     }
     private void Update()
     {
@@ -23,6 +31,20 @@ public class GameManager : Singleton<GameManager>
             SpawnCoolTime();
         }
     }
+
+    #region 상점
+    private void SetColor()
+    {
+        colorDictionary.Add("Fire", Color.red);
+        colorDictionary.Add("Wind", Color.green);
+        colorDictionary.Add("None", Color.gray);
+    }
+
+    #endregion
+
+
+    #region 게임 로직
+
 
     private void SpawnCoolTime()
     {
@@ -52,4 +74,5 @@ public class GameManager : Singleton<GameManager>
             availablePositions.RemoveAt(randomIndex);
         }
     }
+    #endregion
 }

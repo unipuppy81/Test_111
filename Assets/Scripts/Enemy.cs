@@ -15,9 +15,9 @@ public class Enemy : MonoBehaviour
         set { health = value; }
     }
 
-
     private float initialX;
 
+    public bool isDead() { return health <= 0; }
 
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Rigidbody2D rigid;
@@ -77,9 +77,25 @@ public class Enemy : MonoBehaviour
         spriteRenderer.color = new Color(color.r, color.g, color.b, 1.0f);
     }
 
+    private void Dead()
+    {
+
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Border"))
             Destroy(gameObject);
+        else if (collision.gameObject.CompareTag("Bullet"))
+        {
+            OnHit(collision.GetComponent<Bullet>().damage);
+
+            Debug.Log("Bullet");
+
+            if (isDead())
+                Destroy(gameObject);
+        }
     }
+
+    
 }

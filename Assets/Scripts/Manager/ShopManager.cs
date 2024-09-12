@@ -16,7 +16,9 @@ public class ShopManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            ItemManager.Instance.shopItemList.Clear();
             GetRandomItems();
+            UiManager.Instance.GoldSet();
         }
     }
 
@@ -27,7 +29,7 @@ public class ShopManager : MonoBehaviour
 
     public void GetRandomItems()
     {
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < ItemManager.Instance.totalItemList.Count; i++)
         {
             randomIndexes.Add(i);
         }
@@ -50,8 +52,6 @@ public class ShopManager : MonoBehaviour
         selectedNumbers.Clear();
 
         SetShopSlot();
-
-        ItemManager.Instance.shopItemList.Clear();
     }
 
     public void SetShopSlot()

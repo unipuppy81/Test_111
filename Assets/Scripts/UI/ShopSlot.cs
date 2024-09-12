@@ -11,8 +11,11 @@ public class ShopSlot : MonoBehaviour
     [SerializeField] private Image typeBg;
     [SerializeField] private Image totalBg;
 
-    [Header("Cost")]
+    [Header("Cost & Special")]
     [SerializeField] private TextMeshProUGUI costText;
+    [SerializeField] private GameObject specialObj;
+    [SerializeField] private GameObject top;
+    [SerializeField] private TextMeshProUGUI specialText;
 
     [Header("Item Info")]
     [SerializeField] private Image itemNameBg;
@@ -36,6 +39,11 @@ public class ShopSlot : MonoBehaviour
     [SerializeField] private Color color;
     [SerializeField] private Button thisBtn;
 
+    private void Update()
+    {
+        float newY = Mathf.Sin(Time.time * 1) * .01f;
+        top.transform.position = new Vector3(top.transform.position.x, top.transform.position.y + newY, top.transform.position.z);
+    }
 
     public void SetShopSlot()
     {
@@ -54,6 +62,7 @@ public class ShopSlot : MonoBehaviour
 
         SetColor();
         SetAttribute();
+        SpecialPanel();
     }
 
     private void SetColor()
@@ -82,6 +91,18 @@ public class ShopSlot : MonoBehaviour
         if (PlayerStats.Instance.gold >= shopItem.itemCost)
         {
             PlayerStats.Instance.gold -= shopItem.itemCost;
+        }
+    }
+
+    private void SpecialPanel()
+    {
+        if(shopItem.itemLevel == 2 || shopItem.itemLevel == 4 || shopItem.itemLevel == 6)
+        {
+            specialObj.SetActive(true);
+        }
+        else
+        {
+            specialObj.SetActive(false);
         }
     }
 }

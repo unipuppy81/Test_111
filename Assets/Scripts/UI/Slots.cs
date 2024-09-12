@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class Slots : MonoBehaviour
 {
@@ -37,6 +38,6 @@ public class Slots : MonoBehaviour
 
     public void OnClickSlot()
     {
-
+        UiManager.Instance.UpdateItemExplain(curItem.itemIcon, curItem.itemName, curItem.itemDesc);
     }
 }

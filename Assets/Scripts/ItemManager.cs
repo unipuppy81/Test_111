@@ -11,7 +11,10 @@ public class ItemManager : Singleton<ItemManager>
     [SerializeField] private GameObject[] slots;
 
     [SerializeField] private List<Item> myItemList, nonTypeItemList, miniItemList;
-    [SerializeField] private List<Item> totalItemList;
+    [SerializeField] private List<Item> totalItemListOrgin;
+    
+    public List<Item> totalItemList;
+
 
     [Header("상점")]
     public List<Item> shopItemList;
@@ -21,6 +24,8 @@ public class ItemManager : Singleton<ItemManager>
         SlotSetting();
         ItemListSetting();
     }
+
+
 
     #region 인벤토리
 
@@ -47,13 +52,19 @@ public class ItemManager : Singleton<ItemManager>
             curItem.itemLevel = curItem.itemLevel + 1;
             PlayerStats.Instance.AddItem(curItem.itemType);
             PlayerStats.Instance.AddAttribute(curItem.attribute);
+
+            if(curItem.itemLevel == 7)
+            {
+                totalItemList.RemoveAll(x => x.itemId == curItem.itemId);
+            }
         }
         else
         {
             Item findItem = totalItemList.Find(x => x.itemId.Equals(itemId));
             if (findItem != null)
             {
-                findItem.itemLevel = 1;
+                Debug.Log(findItem.itemLevel);
+                findItem.itemLevel++;
                 findItem.CheckItemSet();
                 myItemList.Add(findItem);
                 PlayerStats.Instance.AddItem(findItem.itemType);
@@ -65,23 +76,8 @@ public class ItemManager : Singleton<ItemManager>
         nonTypeItemList.Add(myItemList.Find(x => x.attribute.Equals("None")));
         myItemList.RemoveAll(x => x.attribute == AttributeType.None);
 
-        /*
-        myItemList.Sort((p1, p2) =>
-        {
-            try
-            {
-                int index1 = int.Parse(p1.s_ItemID);
-                int index2 = int.Parse(p2.s_ItemID);
-                return index1.CompareTo(index2);
-            }
-            catch (FormatException)
-            {
-                return p1.s_ItemID.CompareTo(p2.s_ItemID);
-            }
-        });
-        */
-
         SlotSetting();
+                    UiManager.Instance.UpdateSlot();
     }
 
     public void SlotSetting()
@@ -103,7 +99,11 @@ public class ItemManager : Singleton<ItemManager>
 
     public void ItemListSetting()
     {
-
+        foreach (Item item in totalItemListOrgin)
+        {
+            Item clone = item.Clone();
+            totalItemList.Add(clone);
+        }
     }
     #endregion
 
@@ -115,7 +115,6 @@ public class ItemManager : Singleton<ItemManager>
         if (curItem != null)
         {
             shopItemList.Add(curItem);
-            UiManager.Instance.UpdateSlot();
         }
     }
     #endregion

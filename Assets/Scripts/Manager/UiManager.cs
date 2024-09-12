@@ -14,29 +14,38 @@ public class UiManager : Singleton<UiManager>
     [SerializeField] private GameObject explainWeaponPanel;
     [SerializeField] private GameObject explainAttributePanel;
     [SerializeField] private GameObject explainItemPanel;
+    [SerializeField] private Image icon;
+    [SerializeField] private TextMeshProUGUI title;
+    [SerializeField] private TextMeshProUGUI desc;
+
     [SerializeField] private GameObject[] itemSlot, attributeSlot;
 
     [Header("상점")]
     [SerializeField] private GameObject shopPanel;
+    [SerializeField] private TextMeshProUGUI goldText;
 
     #region 게임 설정
     private void Start()
     {
-        UpdateSlot();
-
         statsPanel.SetActive(false);
         shopPanel.SetActive(false);
+        UpdateSlot();
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (explainWeaponPanel.activeSelf || explainAttributePanel.activeSelf)
+            if (explainWeaponPanel.activeSelf || explainAttributePanel.activeSelf || explainItemPanel.activeSelf)
             {
                 explainWeaponPanel.SetActive(false);
                 explainAttributePanel.SetActive(false);
+                explainItemPanel.SetActive(false);
             }
+        }
+        else if (Input.GetKeyDown(KeyCode.Z))
+        {
+            UpdateSlot();
         }
     }
     #endregion
@@ -77,6 +86,14 @@ public class UiManager : Singleton<UiManager>
         }
     }
 
+    public void UpdateItemExplain(Sprite image, string name, string desc)
+    {
+        explainItemPanel.SetActive(true);
+        icon.sprite = image;
+        title.text = name;
+        this.desc.text = desc;
+    }
+
     public void GameExit()
     {
 
@@ -90,5 +107,10 @@ public class UiManager : Singleton<UiManager>
     #endregion
 
     #region 상점
+    
+    public void GoldSet()
+    {
+        goldText.text = PlayerStats.Instance.gold.ToString();
+    }
     #endregion
 }

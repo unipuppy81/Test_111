@@ -6,7 +6,7 @@ public enum ItemType { Sword, Shield, Arrow, Attack, Gold, Heal }
 public enum AttributeType { None, Fire, Wind }
 
 
-[CreateAssetMenu(fileName = "Item", menuName = "Scriptable Object/ItemData", order = 1)]
+[CreateAssetMenu(fileName = "Item", menuName = "Scriptable Object/Item", order = 1)]
 public class Item : ScriptableObject
 {
     [Header("Info")]
@@ -33,7 +33,6 @@ public class Item : ScriptableObject
     {
         if (itemLevel < 7)
         {
-            itemLevel++;
             ApplyLevelBonuses();
         }
     }
@@ -57,5 +56,20 @@ public class Item : ScriptableObject
                 // Arrow 보너스 적용
             }
         }
+    }
+
+
+    public Item Clone()
+    {
+        Item clone = CreateInstance<Item>();
+        clone.itemType = this.itemType;
+        clone.attribute = this.attribute;
+        clone.itemId = this.itemId;
+        clone.itemName = this.itemName;
+        clone.itemDesc = this.itemDesc;
+        clone.itemLevel = this.itemLevel;
+        clone.itemCost = this.itemCost;
+        clone.itemIcon = this.itemIcon;
+        return clone;
     }
 }

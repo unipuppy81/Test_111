@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
+    [Header("게임 데이터")]
+    public ItemData itemData;
+
     [Header("상점 변수")]
     public Dictionary<string, Color> colorDictionary = new Dictionary<string, Color>();
     public Dictionary<string, Image> imageDictionary = new Dictionary<string, Image>();

@@ -10,13 +10,11 @@ public class PlayerStats : Singleton<PlayerStats>
     public Dictionary<ItemType, int> itemTypeCount = new Dictionary<ItemType, int>();
     public Dictionary<AttributeType, int> attributeTypeCount = new Dictionary<AttributeType, int>();
 
-    [SerializeField] private int[] attributeLevelData;
-    [SerializeField] private int[] itemLevelData;
 
-
-    private void Start()
+    private void Awake()
     {
         SetStats();
+        gold = 0;
     }
 
     #region 플레이어 스탯
@@ -30,7 +28,6 @@ public class PlayerStats : Singleton<PlayerStats>
         attributeTypeCount.Add(AttributeType.Fire, 0);
         attributeTypeCount.Add(AttributeType.Wind, 0);
     }
-
 
     public void AddItem(ItemType itemType)
     {
@@ -71,14 +68,13 @@ public class PlayerStats : Singleton<PlayerStats>
     {
         if (!Enum.TryParse(itemTypeString, out ItemType itemType))
         {
-            Debug.LogError($"Invalid item type: {itemTypeString}");
             return "Invalid item type";
         }
 
         int currentCount = itemTypeCount.ContainsKey(itemType) ? itemTypeCount[itemType] : 0;
         int nextGoal = -1;
 
-        foreach (int level in itemLevelData)
+        foreach (int level in GameManager.Instance.itemData.itemLevelData)
         {
             if (level > currentCount)
             {
@@ -89,7 +85,8 @@ public class PlayerStats : Singleton<PlayerStats>
 
         if (nextGoal == -1)
         {
-            nextGoal = currentCount;
+            nextGoal = 7;
+            currentCount = 7;
         }
 
         return $"{currentCount} / {nextGoal}";
@@ -99,14 +96,13 @@ public class PlayerStats : Singleton<PlayerStats>
     {
         if (!Enum.TryParse(AttributeTypeString, out AttributeType attributeType))
         {
-            Debug.LogError($"Invalid item type: {AttributeTypeString}");
             return "Invalid item type";
         }
 
         int currentCount = attributeTypeCount.ContainsKey(attributeType) ? attributeTypeCount[attributeType] : 0;
         int nextGoal = -1;
 
-        foreach (int level in attributeLevelData)
+        foreach (int level in GameManager.Instance.itemData.attributeLevelData)
         {
             if (level > currentCount)
             {
@@ -117,7 +113,8 @@ public class PlayerStats : Singleton<PlayerStats>
 
         if (nextGoal == -1)
         {
-            nextGoal = currentCount;
+            nextGoal = 7;
+            currentCount = 7;
         }
 
         return $"{currentCount} / {nextGoal}";

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Player : MonoBehaviour
 {
     [Header("Move Horizontal")]
@@ -26,6 +27,9 @@ public class Player : MonoBehaviour
 
     [Header("Stats")]
     public float damage = 1f;
+    public float curHp;
+    public float maxHp = 300;
+    public int gold;
 
     private void Start()
     {

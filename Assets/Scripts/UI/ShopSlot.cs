@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Unity.Collections.LowLevel.Unsafe;
 
 public class ShopSlot : MonoBehaviour
 {
@@ -35,11 +34,13 @@ public class ShopSlot : MonoBehaviour
 
     [Header("Var")]
     [SerializeField] private Color color;
+    [SerializeField] private Button thisBtn;
 
 
     public void SetShopSlot()
     {
         bottonDesc.SetActive(true);
+        thisBtn.interactable = true;
 
         typeImage.sprite = shopItem.itemIcon;
         itemType = shopItem.itemType.ToString();
@@ -48,8 +49,8 @@ public class ShopSlot : MonoBehaviour
         itemName.text = shopItem.itemName;
         itemDesc.text = shopItem.itemDesc;
 
-        //itemCount
-        // 게임메니저에서 따로 관리
+        count_Type.text = $"{PlayerStats.Instance.GetItemTypeCount(shopItem.itemType)} / {3}";
+        count_Attribute.text = $"{PlayerStats.Instance.GetAttributeTypeCount(shopItem.attribute)} / {3}";
 
         SetColor();
         SetAttribute();
@@ -71,5 +72,16 @@ public class ShopSlot : MonoBehaviour
     {
         if (itemAttribute.Equals("None"))
             bottonDesc.SetActive(false);
+    }
+
+    public void PurchaseItem()
+    {
+        ItemManager.Instance.GetItem(shopItem.itemId);
+        thisBtn.interactable = false;
+
+        if (PlayerStats.Instance.gold >= shopItem.itemCost)
+        {
+            PlayerStats.Instance.gold -= shopItem.itemCost;
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Transform[] spawnPos;
     [SerializeField] private float maxSpawnDelay;
     [SerializeField] private float curSpawnDelay;
+
 
     private void Start()
     {
@@ -41,7 +43,6 @@ public class GameManager : Singleton<GameManager>
     }
 
     #endregion
-
 
     #region 게임 로직
 

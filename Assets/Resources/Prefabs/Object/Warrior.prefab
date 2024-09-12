@@ -1305,7 +1305,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8370087430094438296}
-  - component: {fileID: 6153144924543336496}
   m_Layer: 0
   m_Name: ShieldPos
   m_TagString: Untagged
@@ -1332,24 +1331,6 @@ Transform:
   - {fileID: 7975646909672103162}
   m_Father: {fileID: 5466329620173460408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6153144924543336496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3153451545494490700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dafcd6cce7d61f248885fd1b457893b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shield: {fileID: 0}
-  id: 0
-  prefabId: 0
-  damage: 0
-  count: 0
-  speed: 0
 --- !u!1 &3251692246411501927
 GameObject:
   m_ObjectHideFlags: 0
@@ -3092,6 +3073,7 @@ GameObject:
   - component: {fileID: 5016810343801505779}
   - component: {fileID: 8253723100458479572}
   - component: {fileID: 6773242496227984942}
+  - component: {fileID: 4030896967083411081}
   m_Layer: 5
   m_Name: Warrior
   m_TagString: Untagged
@@ -3215,6 +3197,24 @@ MonoBehaviour:
   curTime: 0
   coolTime: 0.5
   damage: 1
+  curHp: 0
+  maxHp: 300
+  gold: 0
+--- !u!114 &4030896967083411081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7144575930562554875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6674cd3b7531e9645bd35ca7231b2122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gold: 0
+  attributeLevelData: 030000000500000007000000
+  itemLevelData: 030000000500000007000000
 --- !u!1 &7241304857141260106
 GameObject:
   m_ObjectHideFlags: 0

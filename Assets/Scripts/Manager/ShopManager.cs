@@ -64,13 +64,4 @@ public class ShopManager : MonoBehaviour
             s.SetShopSlot();
         }
     }
-
-    public void PurchaseItem(Item item)
-    {
-        if (gold >= item.itemCost) // 가정: 레벨당 100골드로 가격 결정
-        {
-            gold -= item.itemCost;
-            // 아이템 구매 처리
-        }   
-    }
 }

@@ -4,18 +4,23 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
-using JetBrains.Annotations;
 
 public class ItemManager : Singleton<ItemManager>
 {
     [Header("인벤토리")]
     [SerializeField] private GameObject[] slots;
 
-    [SerializeField] private List<Item> myItemList, curItemList;
+    [SerializeField] private List<Item> myItemList, nonTypeItemList, miniItemList;
     [SerializeField] private List<Item> totalItemList;
 
     [Header("상점")]
     public List<Item> shopItemList;
+
+    private void Start()
+    {
+        SlotSetting();
+        ItemListSetting();
+    }
 
     #region 인벤토리
 
@@ -40,6 +45,8 @@ public class ItemManager : Singleton<ItemManager>
         if (curItem != null)
         {
             curItem.itemLevel = curItem.itemLevel + 1;
+            PlayerStats.Instance.AddItem(curItem.itemType);
+            PlayerStats.Instance.AddAttribute(curItem.attribute);
         }
         else
         {
@@ -49,11 +56,14 @@ public class ItemManager : Singleton<ItemManager>
                 findItem.itemLevel = 1;
                 findItem.CheckItemSet();
                 myItemList.Add(findItem);
+                PlayerStats.Instance.AddItem(findItem.itemType);
+                PlayerStats.Instance.AddAttribute(findItem.attribute);
             }
         }
 
-       
-        
+
+        nonTypeItemList.Add(myItemList.Find(x => x.attribute.Equals("None")));
+        myItemList.RemoveAll(x => x.attribute == AttributeType.None);
 
         /*
         myItemList.Sort((p1, p2) =>
@@ -70,10 +80,8 @@ public class ItemManager : Singleton<ItemManager>
             }
         });
         */
-        
 
-
-        Save();
+        SlotSetting();
     }
 
     public void SlotSetting()
@@ -92,6 +100,11 @@ public class ItemManager : Singleton<ItemManager>
             }
         }
     }
+
+    public void ItemListSetting()
+    {
+
+    }
     #endregion
 
     #region 상점
@@ -102,6 +115,7 @@ public class ItemManager : Singleton<ItemManager>
         if (curItem != null)
         {
             shopItemList.Add(curItem);
+            UiManager.Instance.UpdateSlot();
         }
     }
     #endregion

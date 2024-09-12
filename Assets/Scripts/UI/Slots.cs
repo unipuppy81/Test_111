@@ -10,13 +10,29 @@ public class Slots : MonoBehaviour
     [SerializeField] private Image bgImage;
     [SerializeField] private GameObject countTextObj;
     [SerializeField] private TextMeshProUGUI countText;
+    [SerializeField] private Button thisBtn;
 
     [Header("Item Information")]
     public Item curItem;
 
     public void UpdateSlot()
     {
-        Debug.Log("UpdateSlot");
+        itemIamge.sprite = curItem.itemIcon;
+        
+        if(curItem.itemLevel > 1)
+        {
+            countTextObj.SetActive(true);
+            countText.text = "x" + curItem.itemLevel.ToString();
+        }
+
+        if (curItem.attribute == AttributeType.Fire)
+        {
+            bgImage.color = Color.red;
+        }
+        else if (curItem.attribute == AttributeType.Wind)
+        {
+            bgImage.color = Color.green;
+        }
     }
 
     public void OnClickSlot()

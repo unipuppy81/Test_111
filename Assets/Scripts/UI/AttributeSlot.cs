@@ -73,7 +73,6 @@ public class AttributeSlot : MonoBehaviour
         }
     }
 
-
     public void UpdateExplainPanel()
     {
         UiManager.Instance.UpdateExplainPanel(icon, typeKor, countText.text, type);

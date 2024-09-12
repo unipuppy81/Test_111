@@ -16,15 +16,20 @@ public class ShopManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            ItemManager.Instance.shopItemList.Clear();
-            GetRandomItems();
-            UiManager.Instance.GoldSet();
+
         }
     }
 
     public void OpenShop()
     {
         // 상점 UI 열기
+    }
+    
+    public void ReRollBtn()
+    {
+        ItemManager.Instance.shopItemList.Clear();
+        GetRandomItems();
+        UiManager.Instance.GoldSet();
     }
 
     public void GetRandomItems()

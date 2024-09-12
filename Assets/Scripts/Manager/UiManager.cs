@@ -6,6 +6,9 @@ using TMPro;
 
 public class UiManager : Singleton<UiManager>
 {
+    [Header("변수")]
+    [SerializeField] private ShopManager shopManager;
+
     [Header("스탯")]
     [SerializeField] private GameObject miniStatsPanel;
     [SerializeField] private GameObject statsPanel;
@@ -107,7 +110,21 @@ public class UiManager : Singleton<UiManager>
     #endregion
 
     #region 상점
-    
+    public void ReRoll()
+    {
+        shopManager.ReRollBtn();
+    }    
+
+    public void ExitBtn()
+    {
+        shopPanel.SetActive(false);
+    }
+
+    public void ItemBtn()
+    {
+        statsPanel.SetActive(true);
+    }
+
     public void GoldSet()
     {
         goldText.text = PlayerStats.Instance.gold.ToString();

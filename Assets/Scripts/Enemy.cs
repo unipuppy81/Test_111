@@ -51,7 +51,6 @@ public class Enemy : MonoBehaviour
             rigid.velocity = Vector2.zero;
             speed = 0f;
             transform.position = currentPosition;
-            Debug.Log(gameObject.name);
         }
         else
         {
@@ -88,7 +87,7 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         else if (collision.gameObject.CompareTag("Bullet"))
         {
-            OnHit(collision.GetComponent<Bullet>().damage);
+            //OnHit(collision.GetComponent<Bullet>().damage);
 
             Debug.Log("Bullet");
 

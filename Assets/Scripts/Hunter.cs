@@ -67,7 +67,7 @@ public class Hunter : MonoBehaviour
 
     private void FireArrow()
     {
-        GameObject arrow = Instantiate(arrowPrefab, firePoint.position, Quaternion.identity);
+        GameObject arrow = PoolManager.Instance.SpawnFromPool(GameManager.ARROW, firePoint.position, Quaternion.identity);
         Arrow a = arrow.GetComponent<Arrow>();
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
         a.life = arrowLife;

@@ -9,7 +9,7 @@ public class ItemManager : Singleton<ItemManager>
 {
     [Header("인벤토리")]
     [SerializeField] private GameObject[] slots;
-
+    [SerializeField] private GameObject[] miniSlots;
     [SerializeField] private List<Item> miniItemList;
     [SerializeField] private List<Item> totalItemListOrgin;
     
@@ -22,10 +22,9 @@ public class ItemManager : Singleton<ItemManager>
     private void Start()
     {
         SlotSetting();
+        MiniSlotSetting();
         ItemListSetting();
     }
-
-
 
     #region 인벤토리
 
@@ -82,6 +81,7 @@ public class ItemManager : Singleton<ItemManager>
         myItemList.RemoveAll(x => x.attribute == AttributeType.None);
 
         SlotSetting();
+        MiniSlotSetting();
         UiManager.Instance.UpdateSlot();
     }
 
@@ -98,6 +98,22 @@ public class ItemManager : Singleton<ItemManager>
             {
                 s.curItem = myItemList[i];
                 s.UpdateSlot();
+            }
+        }
+    }
+
+    public void MiniSlotSetting()
+    {
+        for (int i = 0; i < miniSlots.Length; i++)
+        {
+            MiniSlot s = miniSlots[i].GetComponent<MiniSlot>();
+
+            bool isExist = i < myItemList.Count;
+            miniSlots[i].SetActive(isExist);
+
+            if (isExist)
+            {
+                s.SetSlot(myItemList[i].itemIcon, myItemList[i].itemLevel);
             }
         }
     }
@@ -119,7 +135,6 @@ public class ItemManager : Singleton<ItemManager>
 
         if (curItem != null)
         {
-
             if (curItem.attribute != AttributeType.None)
             {
                 curItem.itemTypeCount = PlayerData.Instance.GetItemTypeCount(curItem.itemType);
@@ -128,20 +143,6 @@ public class ItemManager : Singleton<ItemManager>
 
             shopItemList.Add(curItem);
         }
-    }
-    #endregion
-
-    #region 저장 & 로드
-    void Save()
-    {
-        string jdata = JsonConvert.SerializeObject(myItemList);
-        File.WriteAllText(Application.dataPath + "/Resources/MyItemText.txt", jdata);
-    }
-
-    void Load()
-    {
-        string jdata = File.ReadAllText(Application.dataPath + "/Resources/MyItemText.txt");
-        myItemList = JsonConvert.DeserializeObject<List<Item>>(jdata);
     }
     #endregion
 }

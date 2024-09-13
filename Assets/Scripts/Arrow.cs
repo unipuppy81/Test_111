@@ -8,16 +8,13 @@ public class Arrow : MonoBehaviour
     public float damage = 0;
     public float destroyTime = 5f; 
 
-    private void Start()
-    { 
-        Destroy(gameObject, destroyTime);
-    }
 
     private void Update()
     {
         if (life <= 0)
-            Destroy(gameObject);
+            PoolManager.Instance.ReturnToPool(GameManager.ARROW, gameObject);
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
@@ -25,5 +22,10 @@ public class Arrow : MonoBehaviour
             collision.GetComponent<Enemy>().OnHit(damage);
             life--;
         }
+        else if (collision.CompareTag("Border"))
+        {
+            PoolManager.Instance.ReturnToPool(GameManager.ARROW, gameObject);
+        }
+        
     }
 }

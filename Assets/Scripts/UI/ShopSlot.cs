@@ -49,7 +49,6 @@ public class ShopSlot : MonoBehaviour
     public void SetShopSlot()
     {
         bottonDesc.SetActive(true);
-        thisBtn.interactable = true;
 
         typeImage.sprite = shopItem.itemIcon;
         itemType = shopItem.itemType.ToString();
@@ -65,6 +64,8 @@ public class ShopSlot : MonoBehaviour
         SetColor();
         SetAttribute();
         SpecialPanel();
+
+        thisBtn.interactable = PlayerData.Instance.gold >= shopItem.itemCost;
     }
 
     private void SetColor()
@@ -87,12 +88,13 @@ public class ShopSlot : MonoBehaviour
 
     public void PurchaseItem()
     {
-        ItemManager.Instance.GetItem(shopItem.itemId);
-        thisBtn.interactable = false;
-
         if (PlayerData.Instance.gold >= shopItem.itemCost)
         {
             PlayerData.Instance.gold -= shopItem.itemCost;
+            UiManager.Instance.GoldTextUpdate();
+            UiManager.Instance.GoldSet();
+            ItemManager.Instance.GetItem(shopItem.itemId);
+            thisBtn.interactable = false;
         }
     }
 

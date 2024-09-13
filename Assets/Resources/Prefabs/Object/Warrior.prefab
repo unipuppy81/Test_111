@@ -3076,7 +3076,7 @@ GameObject:
   - component: {fileID: 4030896967083411081}
   m_Layer: 5
   m_Name: Warrior
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3188,6 +3188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
+  detectionDistance: 0.5
   anim: {fileID: 903957240887005503}
   enemyLayer:
     serializedVersion: 2
@@ -3195,7 +3196,11 @@ MonoBehaviour:
   pos: {fileID: 6651600604031570615}
   boxSize: {x: 0.5, y: 0.5}
   curTime: 0
+  enemySetterVar: 1
   coolTime: 0.5
+  attackCount: 0
+  swordLevel: 0
+  doubleAttack: 0
   damage: 1
   curHp: 0
   maxHp: 300
@@ -3217,6 +3222,7 @@ MonoBehaviour:
   swordDamage: 0
   shieldDamage: 0
   arrowDamage: 0
+  arrowCoolTime: 0
   shield: {fileID: 3153451545494490700}
   firstShield:
   - {fileID: 4232332698338964074}

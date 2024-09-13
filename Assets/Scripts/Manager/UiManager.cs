@@ -9,6 +9,16 @@ public class UiManager : Singleton<UiManager>
     [Header("변수")]
     [SerializeField] private ShopManager shopManager;
 
+    [Header("게임")]
+    [SerializeField] private TextMeshProUGUI coinText;
+    [SerializeField] private Slider slider;
+    [SerializeField] private GameObject flag_Middle;
+    [SerializeField] private GameObject flag_End;
+    [SerializeField] private TextMeshProUGUI meterText;
+    [SerializeField] private Slider hpSlider;
+    [SerializeField] private Button invenBtn;
+
+
     [Header("스탯")]
     [SerializeField] private GameObject miniStatsPanel;
     [SerializeField] private GameObject statsPanel;
@@ -33,6 +43,8 @@ public class UiManager : Singleton<UiManager>
         statsPanel.SetActive(false);
         shopPanel.SetActive(false);
         UpdateSlot();
+        GoldTextUpdate();
+        slider.maxValue = GameManager.Instance.secondBossSpawnTime;
     }
 
     private void Update()
@@ -46,14 +58,52 @@ public class UiManager : Singleton<UiManager>
                 explainItemPanel.SetActive(false);
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Z))
-        {
-            UpdateSlot();
-        }
+
+        SliderUpdate();
     }
     #endregion
 
-    #region 미니 스탯
+    #region 게임 플레이
+    public void HpSliderUpdate()
+    {
+        StartCoroutine(UpdateHpSlider());
+    }
+
+    private IEnumerator UpdateHpSlider()
+    {
+        float currentHp = hpSlider.value;
+        float targetHp = GameManager.Instance.player.curHp / GameManager.Instance.player.maxHp; 
+
+        float duration = 0.5f; 
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            hpSlider.value = Mathf.Lerp(currentHp, targetHp, elapsedTime / duration); 
+            yield return null;
+        }
+
+        hpSlider.value = targetHp;
+    }
+
+    public void GoldTextUpdate()
+    {
+        coinText.text = PlayerData.Instance.gold.ToString();
+    }
+
+    private void SliderUpdate()
+    {
+        slider.value = GameManager.Instance.playerMoveTime;
+
+        meterText.text = GameManager.Instance.playerMoveTime.ToString("F1") + "m";
+    }
+
+    public void ClickInvenBtn()
+    {
+        statsPanel.SetActive(true);
+        Time.timeScale = 0;
+    }
     #endregion
 
     #region 보유 능력
@@ -105,24 +155,38 @@ public class UiManager : Singleton<UiManager>
     public void Continue()
     {
         statsPanel.SetActive(false);
+        Time.timeScale = 1.0f;
     }
 
     #endregion
 
     #region 상점
+    public void OpenShopPanel()
+    {
+        Time.timeScale = 0.0f;
+        shopPanel.SetActive(true);
+        PlayerData.Instance.gold += 2;
+        ReRoll();
+    }
+
     public void ReRoll()
     {
-        shopManager.ReRollBtn();
+        if(PlayerData.Instance.gold >= 2)
+        {
+            shopManager.ReRollBtn();
+        }
     }    
 
     public void ExitBtn()
     {
         shopPanel.SetActive(false);
+        Time.timeScale = 1.0f;
     }
 
     public void ItemBtn()
     {
         statsPanel.SetActive(true);
+        Time.timeScale = 0.0f;
     }
 
     public void GoldSet()

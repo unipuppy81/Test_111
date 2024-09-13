@@ -8,6 +8,9 @@ TagManager:
   - PlayerAttack
   - Border
   - Bullet
+  - Coin
+  - Shop
+  - Heal
   layers:
   - Default
   - TransparentFX

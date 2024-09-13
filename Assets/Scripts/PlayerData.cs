@@ -67,7 +67,7 @@ public class PlayerData : Singleton<PlayerData>
         shieldDamage = 3; 
         arrowDamage = 2;
         arrowCoolTime = 1.0f;
-        gold = 0;
+        gold = 50;
 
         player.damage = swordDamage;
     }
@@ -340,17 +340,14 @@ public class PlayerData : Singleton<PlayerData>
             case AttributeType.Fire:
                 if (GetAttributeTypeCount(AttributeType.Fire) == 3)
                 {
-                    Debug.Log("AAA");
                     player.enemySetterVar = 3;
                 }
                 else if (GetAttributeTypeCount(AttributeType.Fire) == 5)
                 {
-                    Debug.Log("bbb");
                     player.enemySetterVar = 5;
                 }
                 else if (GetAttributeTypeCount(AttributeType.Fire) == 7)
                 {
-                    Debug.Log("ccc");
                     player.enemySetterVar = 7;
                 }
                 break;

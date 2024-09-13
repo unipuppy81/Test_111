@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Pool;
+
+public enum EnemyType { Normal, Boss }
 
 public class Enemy : MonoBehaviour
 {
+    public string enemyTag;
+
     [SerializeField] private float speed;
     [SerializeField] private float health = 50;
     [SerializeField] private float maxHealth;
+    private float damage;
 
     public float bleedDuration;
     public bool isBleeding = false;
@@ -15,7 +21,6 @@ public class Enemy : MonoBehaviour
     public float explosionRadius;
     private Coroutine bleedingCoroutine;
     [SerializeField] private GameObject particle;
-
     public float Health
     {
         get { return health; }
@@ -36,6 +41,7 @@ public class Enemy : MonoBehaviour
 
         rigid.bodyType = RigidbodyType2D.Kinematic;
         color = spriteRenderer.color;
+        damage = 10.0f;
     }
 
     private void Start()
@@ -65,6 +71,7 @@ public class Enemy : MonoBehaviour
     {
         GetComponent<Collider2D>().enabled = true;
     }
+
 
     public void StateSet(int i)
     {
@@ -154,7 +161,7 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        Destroy(gameObject);
+        PoolManager.Instance.ReturnToPool(enemyTag, gameObject);
     }
 
     private void Explode()
@@ -177,38 +184,18 @@ public class Enemy : MonoBehaviour
 
     }
 
-    private IEnumerator ApplyBleedingDamage(float bleedDamage, float interval)
-    {
-        bleedDuration = 3; 
-        float elapsedTime = 0f;
-
-
-        while (elapsedTime < bleedDuration)
-        {
-            health -= bleedDamage;
-
-            if (health <= 0)
-            {
-                Dead();
-                yield break; 
-            }
-
-            elapsedTime += interval;
-            yield return new WaitForSeconds(interval);
-        }
-
-        isBleeding = false; 
-    }
 
     #endregion
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Border"))
-            Destroy(gameObject);
-        else if (collision.gameObject.CompareTag("Bullet"))
         {
-            //OnHit(collision.GetComponent<Bullet>().damage);
+            PoolManager.Instance.ReturnToPool(enemyTag, gameObject);
+        }
+        else if (collision.gameObject.CompareTag("PlayerAttack"))
+        {
+            GameManager.Instance.player.SetHealth(-damage);
         }
     }
 

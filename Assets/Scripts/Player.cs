@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-
 
 public class Player : MonoBehaviour
 {
     [Header("Move Horizontal")]
     [SerializeField] private Camera mainCamera;
     private Vector3 initialMousePos;
-    private float detectionDistance = 0.5f; 
+    [SerializeField] private float detectionDistance = 0.5f; 
     private float minX = -2f;
     private float maxX = 2f;
     private float speed = 3f;
     private bool isDrag = false;
+
+    
 
     [Header("Animation")]
     [SerializeField] private Animator anim;
@@ -39,6 +41,8 @@ public class Player : MonoBehaviour
     {
         anim.SetBool("isGameDone", false);
         enemySetterVar = 1;
+        curHp = maxHp;
+        UiManager.Instance.HpSliderUpdate();
     }
 
     private void Update()
@@ -50,12 +54,15 @@ public class Player : MonoBehaviour
 
     #region 체력 & 이동
 
+
     public void SetHealth(float amount)
     {
         curHp += amount;
 
         if (curHp >= maxHp)
             curHp = maxHp;
+
+        UiManager.Instance.HpSliderUpdate();
     }
 
     private void HandleMouseInput()
@@ -80,11 +87,12 @@ public class Player : MonoBehaviour
             Vector3 mouseDelta = currentMousePosition - initialMousePos;
 
             float moveX = mouseDelta.x * speed * Time.deltaTime;
-
-            RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, detectionDistance, enemyLayer);
-            RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, detectionDistance, enemyLayer);
+            Vector3 a = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z); 
+            RaycastHit2D hitLeft = Physics2D.Raycast(a, Vector2.left, detectionDistance, enemyLayer);
+            RaycastHit2D hitRight = Physics2D.Raycast(a, Vector2.right, detectionDistance, enemyLayer);
 
             Vector3 newPosition = transform.position;
+
             if (moveX < 0 && hitLeft.collider == null)
                 newPosition.x += moveX;
             else if (moveX > 0 && hitRight.collider == null)
@@ -162,6 +170,20 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Coin"))
+        {
+            PlayerData.Instance.gold += 2;
+            UiManager.Instance.GoldTextUpdate();
+            PoolManager.Instance.ReturnToPool("Coin", collision.gameObject);
+        }
+        else if (collision.CompareTag("Heal"))
+        {
+            SetHealth(curHp * 0.15f);
+        }
+    }
 
     #region 디버깅
     private void OnDrawGizmos()

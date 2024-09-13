@@ -12,15 +12,11 @@ public class ShopManager : MonoBehaviour
 
     public int gold;
 
-    public void OpenShop()
-    {
-        // 상점 UI 열기
-    }
-    
     public void ReRollBtn()
     {
         ItemManager.Instance.shopItemList.Clear();
         GetRandomItems();
+        PlayerData.Instance.gold -= 2;
         UiManager.Instance.GoldSet();
     }
 

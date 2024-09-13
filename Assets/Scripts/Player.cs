@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform pos;
     [SerializeField] private Vector2 boxSize;
     [SerializeField] private float curTime;
+    public int enemySetterVar = 1;
     public float coolTime = .5f;
     public int attackCount = 0;
     public int swordLevel = 0;
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         anim.SetBool("isGameDone", false);
+        enemySetterVar = 1;
     }
 
     private void Update()
@@ -107,13 +109,14 @@ public class Player : MonoBehaviour
                 if (collider.CompareTag("Enemy"))
                 {
                     Enemy e = collider.GetComponent<Enemy>();
+                    e.StateSet(enemySetterVar);
                     e.OnHit(damage);
+
 
                     GameManager.Instance.isCrush = true;
                     anim.SetTrigger("isAtk");
                     attackCount++;
                     curTime = coolTime;
-
 
                     if (swordLevel >= 7 && attackCount == 3)
                     {

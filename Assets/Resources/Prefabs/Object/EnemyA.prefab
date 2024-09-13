@@ -173,8 +173,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  health: 0
-  maxHealth: 0
+  health: 50
+  maxHealth: 50
+  bleedDuration: 0
+  isBleeding: 0
+  isExplode: 0
+  explosionRadius: 0
+  particle: {fileID: 8702990175289530231, guid: d564a02fbb1c78b47ba3e7ce140792e1, type: 3}
   spriteRenderer: {fileID: 4037099643398849035}
   rigid: {fileID: 5707350448858358345}
 --- !u!1 &4365690797747910526

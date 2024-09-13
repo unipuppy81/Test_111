@@ -52,7 +52,9 @@ public class ItemManager : Singleton<ItemManager>
             curItem.itemLevel = curItem.itemLevel + 1;
             PlayerData.Instance.AddItem(curItem.itemType);
             PlayerData.Instance.AddAttribute(curItem.attribute);
+            Debug.Log(PlayerData.Instance.GetAttributeTypeCount(curItem.attribute));
             PlayerData.Instance.SetItemValue(curItem);
+            PlayerData.Instance.AttributeSet(curItem);
 
             if (curItem.itemLevel == 7)
             {
@@ -69,7 +71,9 @@ public class ItemManager : Singleton<ItemManager>
                 myItemList.Add(findItem);
                 PlayerData.Instance.AddItem(findItem.itemType);
                 PlayerData.Instance.AddAttribute(findItem.attribute);
+                Debug.Log(PlayerData.Instance.GetAttributeTypeCount(findItem.attribute));
                 PlayerData.Instance.SetItemValue(findItem);
+                PlayerData.Instance.AttributeSet(findItem);
             }
         }
 

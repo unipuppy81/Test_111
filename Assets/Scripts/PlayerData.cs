@@ -27,7 +27,10 @@ public class PlayerData : Singleton<PlayerData>
     // Arrow
     [SerializeField] private GameObject Hunter;
 
-    
+
+    [Header("속성")]
+
+
     private Hunter h;
     private void Start()
     {
@@ -39,6 +42,12 @@ public class PlayerData : Singleton<PlayerData>
         if(isRotate)
         {
             RotateShield();
+        }
+
+        if(Input.GetKeyUp(KeyCode.Space))
+        {
+            Debug.Log(GetAttributeTypeCount(AttributeType.Fire));
+            Debug.Log(GetAttributeTypeCount(AttributeType.Wind));
         }
     }
 
@@ -55,8 +64,8 @@ public class PlayerData : Singleton<PlayerData>
 
 
         swordDamage = 10;
-        shieldDamage = 10; 
-        arrowDamage = 10;
+        shieldDamage = 3; 
+        arrowDamage = 2;
         arrowCoolTime = 1.0f;
         gold = 0;
 
@@ -247,7 +256,6 @@ public class PlayerData : Singleton<PlayerData>
     #endregion
 
 
-
     #region 능력치 업그레이드
 
     public void SetItemValue(Item item)
@@ -320,5 +328,56 @@ public class PlayerData : Singleton<PlayerData>
         gold += value;
     }
 
+    #endregion
+
+
+    #region 플레이어 속성
+
+    public void AttributeSet(Item item)
+    {
+        switch (item.attribute)
+        {
+            case AttributeType.Fire:
+                if (GetAttributeTypeCount(AttributeType.Fire) == 3)
+                {
+                    Debug.Log("AAA");
+                    player.enemySetterVar = 3;
+                }
+                else if (GetAttributeTypeCount(AttributeType.Fire) == 5)
+                {
+                    Debug.Log("bbb");
+                    player.enemySetterVar = 5;
+                }
+                else if (GetAttributeTypeCount(AttributeType.Fire) == 7)
+                {
+                    Debug.Log("ccc");
+                    player.enemySetterVar = 7;
+                }
+                break;
+
+
+            case AttributeType.Wind:
+                if (GetAttributeTypeCount(AttributeType.Wind) == 3)
+                {
+                    player.coolTime *= 0.9f;
+                    arrowCoolTime *= 0.9f;
+                    rotationSpeed *= 0.9f;
+                }
+                else if (GetAttributeTypeCount(AttributeType.Wind) == 5)
+                {
+                    player.coolTime *= 0.8f;
+                    arrowCoolTime *= 0.8f;
+                    rotationSpeed *= 0.8f;
+                }
+                else if (GetAttributeTypeCount(AttributeType.Wind) == 7)
+                {
+                    player.coolTime *= 0.5f;
+                    arrowCoolTime *= 0.5f;
+                    rotationSpeed *= 0.5f;
+                }
+                break;
+        }
+        
+    }
     #endregion
 }
